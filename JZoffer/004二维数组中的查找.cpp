@@ -2,6 +2,7 @@
 #include<vector>
 using namespace std;
 
+//从右上角开始遍历
 class Solution{
 public:
     bool Find(int target, vector<vector<int> > array) {
