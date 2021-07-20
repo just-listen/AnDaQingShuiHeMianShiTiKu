@@ -1,4 +1,4 @@
-# AnDaQingShuiHeMianShiTiKu
+# LeetCode_GoodLuck
 VSCode to github, for real interview scene and git learning.
 
 分类存放
