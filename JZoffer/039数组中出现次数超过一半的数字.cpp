@@ -7,14 +7,26 @@ public:
     int majorityElement(vector<int>& nums) {
         int votes = 0, x = 0;
         for(int num : nums){
-            if(votes == 0) {
-                x = num;
-                votes = 1;
-            }
-            else if(x != num) votes -= 1;
-            else votes++;
+            if(votes == 0) x = num;
+            votes += x == num ? 1 : -1;
         }
         return x;
+
+        // sort(nums.begin(),nums.end());
+        // return nums[nums.size()/2];
+
+        // unordered_map<int, int> map;
+        // int n = nums.size() / 2;
+        // for(int num : nums) {
+        //     if(map.count(num))
+        //         map[num]++;
+        //     else
+        //         map[num]=1;
+        //     if(map[num] > n) {
+        //         return num;
+        //     }
+        // }
+        // return 0;
     }
 };
 
