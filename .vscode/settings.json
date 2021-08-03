@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "iomanip": "cpp",
+        "algorithm": "cpp",
+        "queue": "cpp",
+        "ostream": "cpp",
+        "iosfwd": "cpp",
+        "random": "cpp"
+    },
+    "fileheader.Author": "Xuefeng Zhang",
+    "fileheader.LastModifiedBy": "LISTEN"
+}

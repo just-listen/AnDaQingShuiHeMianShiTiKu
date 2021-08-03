@@ -1,5 +1,5 @@
-# Json Config
-*.json
+# # Json Config
+# *.json
 
 # Prerequisites
 *.d

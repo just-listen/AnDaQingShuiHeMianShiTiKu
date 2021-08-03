@@ -5,33 +5,27 @@
 #include<unordered_map>
 using namespace std;
 
+class Solution {
+public:
+    vector<int> pathInZigZagTree(int label) {
+        int row = static_cast<int> (log(label) / log(2) + 1);
+        //恰好也是那一层的第一个节点（正常完全二叉树的第一个节点）
+        int rowStart = static_cast<int> (pow(2, row - 1));
+        vector<int> ret(row);
+        while (row > 0)      
+        {
+            ret[row - 1] = label;
+            label = rowStart + (rowStart - (label - rowStart + 1));
+            label = label / 2;
+            rowStart = rowStart / 2;
+            --row;
+        }
+        return ret;
+    }
+};
+
 int main(){
-    int k;
-    cin >> k;
-    int kids = pow(2, k);
-    vector<int> vec(kids);
-    unordered_map<int, int> umap;
-    for(int i = 0; i < kids; ++i){
-        cin >> vec[i];
-        umap[vec[i]] = i;
-    }
-    
-    while(kids > 1){
-        vector<int> tmp;
-        for(int i = 0; i < kids; i += 2){
-            tmp.push_back(min(vec[i], vec[i + 1]));
-        }
-        kids /= 2;
-        if(kids == 1){
-            cout << umap[tmp[0]] << endl;
-            return 0;
-        }
-        vec.clear();
-        for(int i = 0; i < kids; i += 2){
-            vec.push_back(max(tmp[i], tmp[i + 1]));
-        }
-        kids /= 2;
-    }
-    cout << umap[vec[0]] << endl;
+    Solution s;
+    s.pathInZigZagTree(14);
     return 0;
 }
