@@ -6,7 +6,8 @@
         "queue": "cpp",
         "ostream": "cpp",
         "iosfwd": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "string_view": "cpp"
     },
     "fileheader.Author": "Xuefeng Zhang",
     "fileheader.LastModifiedBy": "LISTEN"

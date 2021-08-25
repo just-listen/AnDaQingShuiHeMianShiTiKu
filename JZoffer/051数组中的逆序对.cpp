@@ -8,6 +8,44 @@ class Solution{
 public:
     int reversePairs(vector<int>& nums) {
         int n = nums.size();
+        vector<int> vec(n);
+        return Msort(nums, vec, 0, n - 1);
+    }
+private:
+    int Msort(vector<int>& nums, vector<int>& vec, int left, int right){
+        if(left >= right) return 0;
+        int mid = left + (right - left) / 2;
+        int leftNum = Msort(nums, vec, left, mid);
+        int rightNum = Msort(nums, vec, mid + 1, right);
+        if(nums[mid] <= nums[mid + 1]) return leftNum + rightNum;
+        else{
+            int crossNum = Merge(nums, vec, left, mid + 1, right);
+            return leftNum + rightNum + crossNum;
+        }
+    }
+    int Merge(vector<int>& nums, vector<int>& vec, int lBegin, int rBegin, int rEnd){
+        int lEnd = rBegin - 1, N = rEnd - lBegin + 1;
+        int count = 0, idx = lBegin;
+        while(lBegin <= lEnd && rBegin <= rEnd){
+            if(nums[lBegin] <= nums[rBegin]) vec[idx++] = nums[lBegin++];
+            else{
+                vec[idx++] = nums[rBegin++];
+                count += lEnd - lBegin + 1;
+            }
+        }
+        while(lBegin <= lEnd) vec[idx++] = nums[lBegin++];
+        while(rBegin <= rEnd) vec[idx++] = nums[rBegin++];
+        for(int i = 0; i < N; ++i){
+            nums[rEnd--] = vec[--idx];
+        }
+        return count;
+    }
+};
+
+class Solution1{
+public:
+    int reversePairs(vector<int>& nums) {
+        int n = nums.size();
         if(n < 2) return 0;
         vector<int> vec(n);
         return reversePairs(nums, vec, 0, n - 1);

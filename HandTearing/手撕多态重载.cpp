@@ -54,7 +54,12 @@ void testChongZai(){
     animal.run(str);
 }
 int main(){
-    testDuoTai();
-    testChongZai();
+    // testDuoTai();
+    // testChongZai();
+
+    Cat p1;
+    Dog p2;
+    Animal* fa = &p2;
+    fa->speak();
     return 0;
 }

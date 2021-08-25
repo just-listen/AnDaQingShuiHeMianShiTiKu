@@ -13,10 +13,11 @@ using namespace std;
 class Solution{
 public:
     void byteOrder1(){
-        int a = 0x1234;
+        int a = 0x1256;
         char c = (char)a;
         // int转char留下低地址部分
-        if(c == 0x12) cout << "大端字节序" << endl;
+        // cout << c << " " << (bool)(c == '4') << "new" << c == 0x34;
+        if( c != 0x56) cout << "大端字节序" << endl;
         else cout << "小端字节序" << endl;
     }
     void byteOrder2(){
@@ -32,9 +33,23 @@ public:
         else cout << "unkown" << endl;
     }
 };
+
+void ByteOrder(){
+    union{
+        char a;
+        int b;
+    }un;
+    un.b = 0x0001;
+    if(un.a == 1) cout << "xiaoduan" << endl;
+}
 int main(){
-    Solution s;
-    s.byteOrder2();
-    
+    // Solution s;
+    // s.byteOrder1();
+
+    ByteOrder();
+    int a = 0x1234;
+    char c = (char)a;
+    if(c == '4')
+    cout << c << endl;
     return 0;
 }

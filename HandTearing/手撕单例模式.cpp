@@ -5,8 +5,14 @@
  * @Last Modified time: 2021-08-03 15:35:45
  */
 #include<iostream>
-
+#include<mutex>
 using namespace std;
+
+/*
+    单例模式定义 保证一个类仅有一个实例，并提供一个访问它的全局访问点，该实例被所有程序模块共享。
+（1）该类不能被复制。
+（2）该类不能被公开的创造。
+*/
 
 // 单例懒汉模式
 // 经典的线程安全懒汉模式，使用双检测锁模式。
@@ -55,11 +61,49 @@ single* single::GetInstance(){
     return p;
 }
 
+class LazySingle{
+private:
+    static LazySingle* ptr;
+    static mutex mtx;
+    LazySingle(){}
+    ~LazySingle(){}
+public:
+    static LazySingle* GetInstance();
+};
+LazySingle* LazySingle::ptr = nullptr;
+mutex LazySingle::mtx;
+LazySingle* LazySingle::GetInstance(){
+    if(ptr == nullptr){
+        unique_lock<mutex> lock(mtx);
+        if(ptr == nullptr) ptr = new LazySingle;
+    }
+    return ptr;
+}
+
+class HungerSingle{
+private:
+    static HungerSingle* ptr;
+    HungerSingle(){}
+    ~HungerSingle(){}
+public:
+    static HungerSingle* GetInstance();
+};
+HungerSingle* HungerSingle::ptr = new HungerSingle;
+HungerSingle* HungerSingle::GetInstance(){
+    return ptr;
+}
+
 // 测试方法
 int main(){
-    single *p1 = single::GetInstance();
-    single *p2 = single::GetInstance();
+    // single *p1 = single::GetInstance();
+    // single *p2 = single::GetInstance();
+    LazySingle *p1 = LazySingle::GetInstance();
+    LazySingle *p2 = LazySingle::GetInstance();
     if(p1 == p2) 
-        cout << "same!" << endl;
+        cout << "same!" << p1 << " " << p2 << endl;
+    HungerSingle *p3 = HungerSingle::GetInstance();
+    HungerSingle *p4 = HungerSingle::GetInstance();
+    if(p3 == p4) 
+        cout << "same!" << p3 << " " << p4 << endl;
     return 0;
 }
